@@ -1,0 +1,8 @@
+#ifndef __INCLUDED_SYMBOLSET_SYMBOLSET_HPP__
+#define __INCLUDED_SYMBOLSET_SYMBOLSET_HPP__
+
+namespace symbolset {
+    
+}
+
+#endif // __INCLUDED_SYMBOLSET_SYMBOLSET_HPP__
