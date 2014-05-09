@@ -4,7 +4,7 @@ directory 'gen'
 
 task :default => :test
 
-desc 'Run the test.'
+desc 'Run the test'
 task :test => 'gen' do
   Dir.chdir('vendor') do
     sh "rake develop"
@@ -17,6 +17,18 @@ task :test => 'gen' do
     Dir.chdir('test') do
       sh "./spec --reporter=spec"
     end
+  end
+end
+
+desc 'Run the preprocessor test'
+task :pp_test => 'gen' do
+  Dir.chdir('vendor') do
+    sh "rake develop"
+  end
+  
+  Dir.chdir('gen') do
+    sh "cmake -D IS_PP_TEST=true .."
+    sh "make pp_test"
   end
 end
 

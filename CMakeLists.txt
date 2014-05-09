@@ -26,6 +26,8 @@ include_directories(${PROJECT_SOURCE_DIR})
 
 if(IS_EXAMPLES)
   add_subdirectory(examples)
+elseif(IS_PP_TEST)
+  add_subdirectory(test/preprocessor)
 else()
   add_subdirectory(test)
 endif()
