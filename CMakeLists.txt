@@ -8,7 +8,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     message(FATAL_ERROR ${COMPILER_NOT_SUPPORT_MESSAGE})
   endif()
   
-  set(CMAKE_CXX_FLAGS "-std=gnu++11 -Wall -Wextra")
+  set(CMAKE_CXX_FLAGS "-std=gnu++11 -Wall -Wextra -Wno-switch")
   
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
   if(CMAKE_CXX_COMPILER_VERSION LESS "3.3")
