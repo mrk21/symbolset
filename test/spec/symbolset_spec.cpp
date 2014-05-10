@@ -6,7 +6,7 @@ namespace symbolset {
         struct symtest: public symbolset<symtest> {
             using symbolset::symbolset;
             constexpr symtest() : symbolset() {};
-            constexpr symtest(const symbolset & v) : symbolset(static_cast<value_type>(v)) {}
+            constexpr symtest(symbolset v) : symbolset(v) {}
         };
         
         struct symtest_ex: public symtest {

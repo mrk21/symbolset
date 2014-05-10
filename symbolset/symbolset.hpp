@@ -7,7 +7,7 @@ namespace symbolset {
     // The template parameter T is derived class.
     // You must define the constructors listed below to the T:
     //   * constexpr T() : symbolset() {}
-    //   * constexpr T(const symbolset & v) : symbolset(static_cast<value_type>(v)) {}
+    //   * constexpr T(symbolset v) : symbolset(v) {}
     // You must add the inheriting constructors as shown below to the all derived class:
     //   class derived_class: public base_class {
     //     using base_class::base_class;
@@ -16,7 +16,7 @@ namespace symbolset {
     class symbolset {
     public:
         enum class value_type: uint8_t {};
-        using info = ::symbolset::info<symbolset>;
+        using info_type = info<symbolset>;
         
     protected:
         value_type value;

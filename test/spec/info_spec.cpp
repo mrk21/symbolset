@@ -7,7 +7,7 @@ namespace symbolset {
         struct symtest: public symbolset<symtest> {
             using symbolset::symbolset;
             constexpr symtest() : symbolset() {};
-            constexpr symtest(const symbolset & v) : symbolset(static_cast<value_type>(v)) {}
+            constexpr symtest(symbolset v) : symbolset(v) {}
             
             static constexpr value_type a = static_cast<value_type>(1);
             static constexpr value_type b = static_cast<value_type>(2);
@@ -21,7 +21,7 @@ go_bandit([]{
     describe("info", [&]{
         using namespace info_test;
         
-        symtest::info const info{
+        symtest::info_type const info{
             {val(symtest::a), "a"},
             {val(symtest::b), "b"},
             {val(symtest::c), "c"},
@@ -53,8 +53,8 @@ go_bandit([]{
         
         describe("#names()", [&]{
             it("should get", [&]{
-                symtest::info::name_list expected{"a","b","c"};
-                const symtest::info::name_list & actual = info.names();
+                symtest::info_type::name_list expected{"a","b","c"};
+                const symtest::info_type::name_list & actual = info.names();
                 AssertThat(actual.size(), Equals(expected.size()));
                 AssertThat(std::equal(actual.begin(), actual.end(), expected.begin()), Equals(true));
             });
@@ -62,12 +62,12 @@ go_bandit([]{
         
         describe("#symbols()", [&]{
             it("should get", [&]{
-                symtest::info::symbol_list expected{
+                symtest::info_type::symbol_list expected{
                     symtest::a,
                     symtest::b,
                     symtest::c,
                 };
-                const symtest::info::symbol_list & actual = info.symbols();
+                const symtest::info_type::symbol_list & actual = info.symbols();
                 AssertThat(actual.size(), Equals(expected.size()));
                 AssertThat(std::equal(actual.begin(), actual.end(), expected.begin()), Equals(true));
             });
