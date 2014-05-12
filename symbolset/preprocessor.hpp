@@ -24,7 +24,7 @@
 
 #define SYMBOLSET_PP_STR(i, data_tuple) \
     BOOST_PP_STRINGIZE( \
-        SYMBOLSET_PP_VAL(i,data_tuple) \
+        SYMBOLSET_PP_VAL(i, data_tuple) \
     )
 
 #define SYMBOLSET_PP_EACH(callback, data_tuple) \
@@ -40,7 +40,12 @@
     SYMBOLSET_PP_EACH(SYMBOLSET_PP_SYMBOL, data_tuple)
 
 #define SYMBOLSET_PP_SYMBOL(unused, i, data_tuple) \
-    static constexpr value_type SYMBOLSET_PP_VAL(i, data_tuple) = static_cast<value_type>(i);
+    SYMBOLSET_PP_SYMBOL_IMPL( \
+        SYMBOLSET_PP_VAL(i, data_tuple), i \
+    )
+
+#define SYMBOLSET_PP_SYMBOL_IMPL(symbol, value) \
+    static constexpr value_type symbol = static_cast<value_type>(value);
 
 
 // display the symbol-name mapping list
@@ -50,8 +55,14 @@
     )
 
 #define SYMBOLSET_PP_NAME(unused, i, data_tuple) \
-    ({::symbolset::val(SYMBOLSET_PP_ARG(0, data_tuple)::SYMBOLSET_PP_VAL(i, data_tuple))) \
-    (SYMBOLSET_PP_STR(i, data_tuple)})
+    SYMBOLSET_PP_NAME_IMPL( \
+        SYMBOLSET_PP_ARG(0, data_tuple), \
+        SYMBOLSET_PP_VAL(i, data_tuple), \
+        SYMBOLSET_PP_STR(i, data_tuple) \
+    )
+
+#define SYMBOLSET_PP_NAME_IMPL(type, symbol, name) \
+    ({::symbolset::val(type::symbol)) (name})
 
 
 // display the static_assert() list
@@ -59,7 +70,13 @@
     SYMBOLSET_PP_EACH(SYMBOLSET_PP_ASSERT, data_tuple)
 
 #define SYMBOLSET_PP_ASSERT(unused, i, data_tuple) \
-    static_assert(SYMBOLSET_PP_STR(i, data_tuple)[0] != '\0', "Symbol name is empty! (index: " #i ")");
+    SYMBOLSET_PP_ASSERT_IMPL( \
+        SYMBOLSET_PP_STR(i, data_tuple), \
+        "Symbol name is empty! (index: " #i ")"  \
+    )
+
+#define SYMBOLSET_PP_ASSERT_IMPL(name, message) \
+    static_assert(name[0] != '\0', message);
 
 
 // display the symbolset
