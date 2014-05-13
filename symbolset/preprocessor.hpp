@@ -88,8 +88,6 @@
     \
     struct type: public ::symbolset::symbolset<type> { \
         using symbolset::symbolset; \
-        constexpr type() : symbolset() {} \
-        constexpr type(const symbolset & v) : symbolset(v) {} \
         \
         SYMBOLSET_PP_SYMBOL_LIST(data_tuple) \
         \

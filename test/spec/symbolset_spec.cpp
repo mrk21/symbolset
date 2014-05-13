@@ -5,8 +5,6 @@ namespace symbolset {
     namespace symbolset_test {
         struct symtest: public symbolset<symtest> {
             using symbolset::symbolset;
-            constexpr symtest() : symbolset() {};
-            constexpr symtest(symbolset v) : symbolset(v) {}
         };
         
         struct symtest_ex: public symtest {
