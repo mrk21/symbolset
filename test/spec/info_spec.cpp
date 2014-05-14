@@ -6,8 +6,6 @@ namespace symbolset {
     namespace info_test {
         struct symtest: public symbolset<symtest> {
             using symbolset::symbolset;
-            constexpr symtest() : symbolset() {};
-            constexpr symtest(symbolset v) : symbolset(v) {}
             
             static constexpr value_type a = static_cast<value_type>(1);
             static constexpr value_type b = static_cast<value_type>(2);
