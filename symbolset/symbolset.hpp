@@ -31,6 +31,7 @@ namespace symbolset {
         }
         
         static constexpr value_type invalid = static_cast<value_type>(0);
+        static constexpr std::size_t SIZE = 0;
     };
     
     template<class T>
@@ -46,6 +47,11 @@ namespace symbolset {
         
         constexpr symbolset() : my_symbolset_base() {}
         constexpr symbolset(my_symbolset_base v) : my_symbolset_base(v) {}
+        
+        static const typename my_symbolset_base::info_type & info() {
+            static typename my_symbolset_base::info_type const data;
+            return data;
+        }
     };
     
     

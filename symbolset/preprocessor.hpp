@@ -41,7 +41,8 @@
 
 #define SYMBOLSET_PP_SYMBOL(unused, i, data_tuple) \
     SYMBOLSET_PP_SYMBOL_IMPL( \
-        SYMBOLSET_PP_VAL(i, data_tuple), i \
+        SYMBOLSET_PP_VAL(i, data_tuple), \
+        SYMBOLSET_PP_ARG(1, data_tuple)::SIZE + i + 1 \
     )
 
 #define SYMBOLSET_PP_SYMBOL_IMPL(symbol, value) \
@@ -80,21 +81,38 @@
 
 
 // display the symbolset
-#define SYMBOLSET_DEFINE(type, symbols) \
-    SYMBOLSET_PP_DEFINE(type, ((type), symbols))
+#define SYMBOLSET_DEFINE(...) \
+    BOOST_PP_OVERLOAD(SYMBOLSET_PP_DEFINE_,__VA_ARGS__)(__VA_ARGS__)
 
-#define SYMBOLSET_PP_DEFINE(type, data_tuple) \
+#define SYMBOLSET_PP_DEFINE_2(type, symbols) \
+    SYMBOLSET_PP_DEFINE_IMPL( \
+        type, \
+        ::symbolset::symbolset<type>, \
+        symbolset::symbolset, \
+        ((type, ::symbolset::symbolset<type>), symbols) \
+    )
+
+#define SYMBOLSET_PP_DEFINE_3(type, base_type, symbols) \
+    SYMBOLSET_PP_DEFINE_IMPL( \
+        type, \
+        base_type, \
+        base_type::base_type, \
+        ((type, base_type), symbols) \
+    )
+
+#define SYMBOLSET_PP_DEFINE_IMPL(type, base_type, base_type_constructor, data_tuple) \
     SYMBOLSET_PP_ASSERT_LIST(data_tuple) \
     \
-    struct type: public ::symbolset::symbolset<type> { \
-        using symbolset::symbolset; \
+    struct type: public base_type { \
+        using base_type_constructor; \
         \
         SYMBOLSET_PP_SYMBOL_LIST(data_tuple) \
+        static constexpr std::size_t SIZE = base_type::SIZE + BOOST_PP_TUPLE_SIZE(SYMBOLSET_PP_VAL_TUPLE(data_tuple)); \
         \
         static const info_type & info() { \
-            static info_type const data{ \
+            static info_type const data(base_type::info(), { \
                 SYMBOLSET_PP_NAME_LIST(data_tuple) \
-            }; \
+            }); \
             return data; \
         } \
     };

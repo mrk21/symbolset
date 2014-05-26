@@ -19,11 +19,11 @@ go_bandit([]{
     describe("info", [&]{
         using namespace info_test;
         
-        symtest::info_type const info{
+        symtest::info_type const info(symtest::info_type(), {
             {val(symtest::a), "a"},
             {val(symtest::b), "b"},
             {val(symtest::c), "c"},
-        };
+        });
         
         describe("#name_of(symbol_type v)", [&]{
             it("should be name of the v", [&]{
