@@ -1,7 +1,9 @@
 #ifndef __INCLUDED_SYMBOLSET_SYMBOLSET_HPP__
 #define __INCLUDED_SYMBOLSET_SYMBOLSET_HPP__
 
+#include <iostream>
 #include <symbolset/info.hpp>
+#include <symbolset/preprocessor.hpp>
 
 namespace symbolset {
     // The template parameter T is derived class.

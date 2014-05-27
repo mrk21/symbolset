@@ -3,6 +3,7 @@
 
 #include <map>
 #include <vector>
+#include <string>
 #include <initializer_list>
 
 namespace symbolset {
@@ -10,7 +11,7 @@ namespace symbolset {
     template<class T>
     class info {
     public:
-        using name_type = const char *;
+        using name_type = std::string;
         using symbol_type = typename T::value_type;
         using pair = std::pair<symbol_type, name_type>;
         using name_table = std::map<symbol_type, name_type>;
