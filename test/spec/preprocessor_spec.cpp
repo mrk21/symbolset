@@ -2,6 +2,7 @@
 #include <symbolset/symbolset.hpp>
 #include <symbolset/preprocessor.hpp>
 #include <iostream>
+#include <sstream>
 
 namespace symbolset {
     namespace preprocessor_test {
@@ -36,6 +37,14 @@ go_bandit([]{
             });
         });
         
+        describe("operator <<(std::ostream & out, type value)", [&]{
+            it("should be a name of the `value`", [&]{
+                std::ostringstream oss;
+                oss << symtest(symtest::value_a);
+                AssertThat(oss.str(), Equals("value_a"));
+            });
+        });
+        
         describe("with the `base_type`", [&]{
             describe("#info().name_of(value_type v)", [&]{
                 it("should be a name of the v", [&]{
@@ -45,6 +54,17 @@ go_bandit([]{
                     AssertThat(symtest_ex2::info().name_of(symtest_ex2::value_a), Equals("value_a"));
                     AssertThat(symtest_ex2::info().name_of(symtest_ex2::value_d), Equals("value_d"));
                     AssertThat(symtest_ex2::info().name_of(symtest_ex2::value_g), Equals("value_g"));
+                });
+            });
+            
+            describe("operator <<(std::ostream & out, type value)", [&]{
+                it("should be a name of the `value`", [&]{
+                    { std::ostringstream oss; oss << symtest_ex(symtest_ex::value_a); AssertThat(oss.str(), Equals("value_a")); }
+                    { std::ostringstream oss; oss << symtest_ex(symtest_ex::value_d); AssertThat(oss.str(), Equals("value_d")); }
+                    
+                    { std::ostringstream oss; oss << symtest_ex2(symtest_ex2::value_a); AssertThat(oss.str(), Equals("value_a")); }
+                    { std::ostringstream oss; oss << symtest_ex2(symtest_ex2::value_d); AssertThat(oss.str(), Equals("value_d")); }
+                    { std::ostringstream oss; oss << symtest_ex2(symtest_ex2::value_g); AssertThat(oss.str(), Equals("value_g")); }
                 });
             });
         });

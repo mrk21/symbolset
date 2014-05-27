@@ -115,6 +115,10 @@
             }); \
             return data; \
         } \
+        \
+        friend std::ostream & operator <<(std::ostream & out, type value) { \
+            return out << type::info().name_of(value); \
+        } \
     };
 
 #endif // __INCLUDED_SYMBOLSET_PREPROCESSOR_HPP__
