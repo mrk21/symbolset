@@ -42,7 +42,7 @@
 #define SYMBOLSET_PP_SYMBOL(unused, i, data_tuple) \
     SYMBOLSET_PP_SYMBOL_IMPL( \
         SYMBOLSET_PP_VAL(i, data_tuple), \
-        SYMBOLSET_PP_ARG(1, data_tuple)::SIZE + i + 1 \
+        SYMBOLSET_PP_ARG(1, data_tuple)::SIZE + i \
     )
 
 #define SYMBOLSET_PP_SYMBOL_IMPL(symbol, value) \

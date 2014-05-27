@@ -106,9 +106,9 @@ module Symbolset
         assert_equal format(<<-SUBJECT_CPP), format(<<-EXPECTED_CPP)
           SYMBOLSET_PP_SYMBOL_LIST(((type, base_type),(a,b,c)))
         SUBJECT_CPP
-          static constexpr value_type a = static_cast<value_type>(base_type::SIZE + 0 + 1);
-          static constexpr value_type b = static_cast<value_type>(base_type::SIZE + 1 + 1);
-          static constexpr value_type c = static_cast<value_type>(base_type::SIZE + 2 + 1);
+          static constexpr value_type a = static_cast<value_type>(base_type::SIZE + 0);
+          static constexpr value_type b = static_cast<value_type>(base_type::SIZE + 1);
+          static constexpr value_type c = static_cast<value_type>(base_type::SIZE + 2);
         EXPECTED_CPP
       end
     end

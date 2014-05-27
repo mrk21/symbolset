@@ -31,7 +31,7 @@ namespace symbolset {
         }
         
         static constexpr value_type invalid = static_cast<value_type>(0);
-        static constexpr std::size_t SIZE = 0;
+        static constexpr std::size_t SIZE = 1;
     };
     
     template<class T>
