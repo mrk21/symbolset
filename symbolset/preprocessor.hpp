@@ -41,12 +41,13 @@
 
 #define SYMBOLSET_PP_SYMBOL(unused, i, data_tuple) \
     SYMBOLSET_PP_SYMBOL_IMPL( \
+        SYMBOLSET_PP_ARG(1, data_tuple), \
         SYMBOLSET_PP_VAL(i, data_tuple), \
         SYMBOLSET_PP_ARG(1, data_tuple)::SIZE + i \
     )
 
-#define SYMBOLSET_PP_SYMBOL_IMPL(symbol, value) \
-    static constexpr value_type symbol = static_cast<value_type>(value);
+#define SYMBOLSET_PP_SYMBOL_IMPL(base_type, symbol, value) \
+    static constexpr typename base_type::value_type symbol = static_cast<typename base_type::value_type>(value);
 
 
 // display the symbol-name mapping list
@@ -88,7 +89,7 @@
     SYMBOLSET_PP_DEFINE_IMPL( \
         type, \
         ::symbolset::symbolset<type>, \
-        symbolset::symbolset, \
+        symbolset<type>::symbolset, \
         ((type, ::symbolset::symbolset<type>), symbols) \
     )
 
@@ -109,8 +110,8 @@
         SYMBOLSET_PP_SYMBOL_LIST(data_tuple) \
         static constexpr std::size_t SIZE = base_type::SIZE + BOOST_PP_TUPLE_SIZE(SYMBOLSET_PP_VAL_TUPLE(data_tuple)); \
         \
-        static const info_type & info() { \
-            static info_type const data(base_type::info(), { \
+        static const typename base_type::info_type & info() { \
+            static typename base_type::info_type const data(base_type::info(), { \
                 SYMBOLSET_PP_NAME_LIST(data_tuple) \
             }); \
             return data; \

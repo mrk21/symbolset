@@ -23,6 +23,17 @@ namespace symbolset {
             value_h,
             value_i
         ));
+        
+        
+        // should be compile
+        struct with_in_class {
+            SYMBOLSET_DEFINE(type, (a));
+        };
+        
+        template<typename T>
+        struct with_in_template_class {
+            SYMBOLSET_DEFINE(type, (a));
+        };
     }
     
 go_bandit([]{
