@@ -89,7 +89,7 @@
     SYMBOLSET_PP_DEFINE_IMPL( \
         type, \
         ::symbolset::symbolset<type>, \
-        symbolset<type>::symbolset, \
+        ::symbolset::symbolset<type>::symbolset, \
         ((type, ::symbolset::symbolset<type>), symbols) \
     )
 
